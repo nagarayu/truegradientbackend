@@ -157,6 +157,16 @@ app.get('/response',async(req,res)=>{
   }
 })
 
+app.get('/users',async(req,res)=>{
+  try{
+    const users = await User.find().populate('responses'); // Assuming 'responses' is the field containing references
+    res.status(200).json({data:users})
+  }
+  catch(err){
+    res.status(500).send({data:"Internal Server Error"})
+  }
+})
+
 const start = async () => {
   try {
     await connectDB(
